@@ -59,7 +59,7 @@ Criar uma plataforma simples, bonita e funcional que permita:
 
 ---
 
-## 👩‍💻 Desenvolvedores
+## 💻 Desenvolvedores
 * Lucia — Desenvolvimento Front-End
 * Sergio — Desenvolvimento Back-End
 * Renato — Banco de Dados
