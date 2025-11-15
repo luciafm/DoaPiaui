@@ -1,0 +1,230 @@
+:root {
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
+  --text-light: #4F5B60;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: var(--beige-bg);
+  color: var(--text-dark);
+}
+header {
+  width: 100%;
+  background: var(--green-primary);
+  color: white;
+  padding: 16px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* LINKS DO NAV */
+header nav a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  margin-left: 18px;
+  font-weight: 500;
+  font-size: 16px;
+
+  transition: color .2s ease, transform .2s ease;
+}
+
+/* EFEITO HOVER */
+header nav a:hover {
+  color: var(--orange-primary); /* muda para laranja */
+  transform: scale(1.07);       /* leve aumento */
+}
+
+/* LINHA ANIMADA EMBAIXO */
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background: var(--orange-primary);
+  border-radius: 4px;
+  transition: width .2s ease;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 15%;
+  background: var(--beige-bg);
+}
+
+.hero-text {
+  max-width: 480px;
+}
+
+.hero-text h2 {
+  font-size: 50px;
+  font-weight: 700;
+  color: var(--green-primary);
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+.hero-text p {
+  font-size: 22px;
+  color: var(--text-light);
+}
+
+.hero img {
+  width: 400px;
+  border-radius: 0px;
+}
+.numeros {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  padding: 50px 0;
+  background: var(--orange-primary);
+}
+
+.numero {
+  background: #FFF;
+  padding: 30px 40px;
+  border-radius: 18px;
+  box-shadow: 0px 5px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.2s;
+}
+
+.numero:hover {
+  transform: translateY(-4px);
+}
+
+.numero h3 {
+  font-size: 58px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+
+.numero p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--text-light);
+}
+
+/* CONTAINER EM 2 COLUNAS */
+.como-funciona-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px 22%;
+  background: #FFFDF7;
+  gap: 60px;
+}
+
+/* COLUNA ESQUERDA */
+.col-esquerda {
+  flex: 1;
+}
+
+/* MANTÉM O ESTILO DO SEU "Como Funciona" */
+.col-esquerda h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: var(--text-dark);
+}
+
+/* ÍCONES E PASSOS */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.step-icon {
+  width: 58px;
+  height: 58px;
+  background: #FFEBC2;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* COLUNA DIREITA (BOTÃO GRANDE) */
+.col-direita {
+  flex: 0.7;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-cadastrar-coluna {
+  display: inline-block;
+  background: var(--orange-primary);
+  color: white;
+  padding: 22px 45px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0px 4px 14px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+.btn-cadastrar-coluna:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+}
+
+footer p {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .como-funciona-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .col-direita {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .btn-cadastrar-coluna {
+    width: 100%;
+  }}
