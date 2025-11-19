@@ -7,96 +7,103 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- HEADER -->
   <header>
     <h1>DoaPiauí</h1>
     <nav>
       <a href="login.html">Login</a>
-      <a href="/criarConta.html">Criar conta</a>
+      <a href="criarConta.html">Criar conta</a>
     </nav>
   </header>
 
   <!-- HERO -->
   <section class="hero">
-        <div class="hero-text">
-            <h2>Ajude pessoas no<br>Piauí com suas<br>doações!</h2>
-            <p>DoaPiauí é uma plataforma para conectar doadores a famílias e ONGs em todo o estado.</p>
-        </div>
-        <img src="/assents/imghero-woman.svg" alt="Mulher segurando cesta de alimentos">
+    <div class="hero-text">
+      <h2>Ajude pessoas no<br>Piauí com suas<br>doações!</h2>
+      <p>DoaPiauí é uma plataforma para conectar doadores a famílias e ONGs em todo o estado.</p>
+    </div>
+
+    <!-- CORRIGIDO: caminho sem barra no início -->
+    <img src="assents/imghero-woman.svg" alt="Mulher segurando cesta de alimentos">
   </section>
 
   <!-- NÚMEROS -->
   <section class="numeros">
-        <div class="numero">
-            <h3>+250</h3>
-            <p>famílias/ONGs atendidas</p>
-        </div>
+    <div class="numero">
+      <h3>+250</h3>
+      <p>famílias/ONGs atendidas</p>
+    </div>
 
-        <div class="numero">
-            <h3>+500</h3>
-            <p>doações realizadas</p>
-        </div>
+    <div class="numero">
+      <h3>+500</h3>
+      <p>doações realizadas</p>
+    </div>
 
-        <div class="numero">
-            <h3>+150</h3>
-            <p>ONGs beneficiadas</p>
-        </div>
+    <div class="numero">
+      <h3>+150</h3>
+      <p>ONGs beneficiadas</p>
+    </div>
   </section>
 
   <section class="como-funciona-container">
 
-  <!-- COLUNA ESQUERDA -->
-  <div class="col-esquerda">
-    <h2>Como Funciona:</h2>
+    <!-- COLUNA ESQUERDA -->
+    <div class="col-esquerda">
+      <h2>Como Funciona:</h2>
 
-    <div class="steps">
+      <div class="steps">
 
-      <div class="step">
-        <div class="step-icon">
-          <img src="/assents/icon-user.svg.svg" width="45">
+        <div class="step">
+          <div class="step-icon">
+            <!-- CORRIGIDO: estava .svg.svg -->
+            <img src="assents/icon-user.svg" width="45">
+          </div>
+          <div class="step-text">
+            <h3>Crie sua conta</h3>
+            <p>Faça o cadastro e entre na plataforma</p>
+          </div>
         </div>
-        <div class="step-text">
-          <h3>Crie sua conta</h3>
-          <p>Faça o cadastro e entre na plataforma</p>
+
+        <div class="step">
+          <div class="step-icon">
+            <img src="assents/icon-list.svg" width="45">
+          </div>
+          <div class="step-text">
+            <h3>Publique ou encontre doações</h3>
+            <p>Liste ou busque doações próximas de você</p>
+          </div>
         </div>
+
+        <div class="step">
+          <div class="step-icon">
+            <img src="assents/icon-chat.svg" width="45">
+          </div>
+          <div class="step-text">
+            <h3>Entre em contato</h3>
+            <p>Combine os detalhes e faça a retirada</p>
+          </div>
+        </div>
+
       </div>
-
-      <div class="step">
-        <div class="step-icon">
-          <img src="/assents/icon-list.svg" width="45">
-        </div>
-        <div class="step-text">
-          <h3>Publique ou encontre doações</h3>
-          <p>Liste ou busque doações próximas de você</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-icon">
-          <img src="/assents/icon-chat.svg" width="45">
-        </div>
-        <div class="step-text">
-          <h3>Entre em contato</h3>
-          <p>Combine os detalhes e faça a retirada</p>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <!-- COLUNA DIREITA -->
-  <div class="col-direita">
-    <a href="/criarConta.html" class="btn-cadastrar-coluna">
-      Quero me cadastrar
-    </a>
-  </div>
+    <!-- COLUNA DIREITA -->
+    <div class="col-direita">
+      <a href="criarConta.html" class="btn-cadastrar-coluna">
+        Quero me cadastrar
+      </a>
+    </div>
 
-</section>
+  </section>
 
   <!-- FOOTER -->
   <footer>
-        <p> © DoaPiauí — 2025</p>
+    <p> © DoaPiauí — 2025</p>
   </footer>
+
+  <!-- ADICIONADO: scripts globais -->
+  <script type="module" src="js/app.js"></script>
 
 </body>
 </html>

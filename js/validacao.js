@@ -1,94 +1,85 @@
-// Seleciona o formulário
-const formCriar = document.querySelector("form");
+import { salvarUsuario } from "./app.js";
 
-if (formCriar) {
-  formCriar.addEventListener("submit", function (event) {
+console.log("validacao.js carregado!");
+
+// --- LOGIN ---
+const loginForm = document.getElementById("formLogin");
+if (loginForm) {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    // pega os campos
-    const nome = document.querySelector("#nome");
-    const email = document.querySelector("#email");
-    const senha = document.querySelector("#senha");
-    const confirmar = document.querySelector("#confirmar");
-    const whatsapp = document.querySelector("#whatsapp");
-    const bairro = document.querySelector("#bairro");
-
-    // resetar erros
-    document.querySelectorAll(".erro").forEach(e => e.remove());
-
-    let valido = true;
-
-    // função auxiliar para erro
-    function erro(campo, mensagem) {
-      valido = false;
-      campo.style.borderColor = "red";
-
-      const msg = document.createElement("p");
-      msg.classList.add("erro");
-      msg.style.color = "red";
-      msg.style.fontSize = "13px";
-      msg.style.marginTop = "-10px";
-      msg.style.marginBottom = "10px";
-      msg.textContent = mensagem;
-      campo.insertAdjacentElement("afterend", msg);
-    }
-
-    // nome
-    if (nome.value.trim() === "") erro(nome, "Nome obrigatório.");
-
-    // email
-    const regexEmail = /\S+@\S+\.\S+/;
-    if (!regexEmail.test(email.value)) erro(email, "Email inválido.");
-
-    // senha
-    if (senha.value.length < 6) erro(senha, "A senha deve ter pelo menos 6 caracteres.");
-
-    // confirmar senha
-    if (confirmar.value !== senha.value) erro(confirmar, "As senhas não coincidem.");
-
-    // whatsapp
-    if (whatsapp.value.trim().length < 9) erro(whatsapp, "Digite um número válido.");
-
-    // bairro
-    if (bairro.value.trim() === "") erro(bairro, "Bairro obrigatório.");
-
-    // se estiver válido → enviar para firebase depois
-    if (valido) {
-      alert("Campos válidos! Agora pode enviar ao Firebase.");
-      formCriar.submit(); // ou chamar função de criar conta
+    
+    const email = document.getElementById("emailLogin").value;
+    const senha = document.getElementById("senhaLogin").value;
+    
+    try {
+      const resp = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha })
+      });
+      
+      const json = await resp.json();
+      
+      if (resp.status === 200) {
+        // Salva usuário caso venha do backend
+        if (json.usuario) {
+          salvarUsuario(json.usuario);
+        }
+        alert("Login realizado com sucesso!");
+        window.location.href = "index.html";
+      } else {
+        alert(json.msg || "Erro ao fazer login");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao conectar ao servidor");
     }
   });
 }
 
-const formLogin = document.querySelector("#formLogin");
-
-if (formLogin) {
-  formLogin.addEventListener("submit", function (event) {
+// --- CADASTRO ---
+const cadastroForm = document.getElementById("formCadastro");
+if (cadastroForm) {
+  cadastroForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    
+    const nome = document.getElementById("nomeCadastro").value;
+    const email = document.getElementById("emailCadastro").value;
+    const senha = document.getElementById("senhaCadastro").value;
+    const confirmarSenha = document.getElementById("confirmarCadastro").value;
+    const whatsapp = document.getElementById("whatsappCadastro").value;
+    const bairro = document.getElementById("bairroCadastro").value;
 
-    const email = document.querySelector("#emailLogin");
-    const senha = document.querySelector("#senhaLogin");
-
-    document.querySelectorAll(".erro").forEach(e => e.remove());
-    let valido = true;
-
-    function erro(campo, mensagem) {
-      valido = false;
-      campo.style.borderColor = "red";
-      const msg = document.createElement("p");
-      msg.classList.add("erro");
-      msg.style.color = "red";
-      msg.style.fontSize = "13px";
-      msg.textContent = mensagem;
-      campo.insertAdjacentElement("afterend", msg);
+    // Validação das senhas
+    if (senha !== confirmarSenha) {
+      alert("As senhas não coincidem!");
+      return;
     }
 
-    if (!/\S+@\S+\.\S+/.test(email.value)) erro(email, "Email inválido.");
-    if (senha.value.trim() === "") erro(senha, "Digite sua senha.");
-
-    if (valido) {
-      alert("Login válido! Agora pode chamar loginUser().");
-      formLogin.submit();
+    try {
+      const resp = await fetch("http://localhost:3000/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          nome, 
+          email, 
+          senha, 
+          whatsapp, 
+          bairro 
+        })
+      });
+      
+      const json = await resp.json();
+      
+      if (resp.status === 201) {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+      } else {
+        alert(json.msg || "Erro ao cadastrar");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao conectar ao servidor");
     }
   });
 }

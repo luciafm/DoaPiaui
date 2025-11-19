@@ -4,51 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Criar Conta - DoaPiauí</title>
-  <link rel="stylesheet" href="css/criarConta.css">
+  <link rel="stylesheet" href="../css/criarConta.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <!-- HEADER -->
     <header>
         <h1>DoaPiauí</h1>
-        <a href="index.html" >Voltar à Home</a>
+        <a href="../index.html">Voltar à Home</a>
     </header>
-
+    
     <!-- CARD CENTRAL -->
     <main class="container">
         <h2>Criar conta</h2>
-
-        <form>
-
+        <form id="formCadastro">
             <label>Nome completo</label>
-            <input id="nome" type="text">
-
+            <input id="nomeCadastro" type="text" required>
+            
             <label>Email</label>
-            <input id="email" type="email">
-
+            <input id="emailCadastro" type="email" required>
+            
             <label>Senha</label>
-            <input id="senha" type="password">
-
+            <input id="senhaCadastro" type="password" required>
+            
             <label>Confirmar senha</label>
-            <input id="confirmar" type="password">
-
+            <input id="confirmarCadastro" type="password" required>
+            
             <label>Número do WhatsApp</label>
-            <input id="whatsapp" type="text">
-
+            <input id="whatsappCadastro" type="text" placeholder="(86) 99999-9999">
+            
             <label>Bairro (Teresina)</label>
-            <input id="bairro" type="text">
-
-            <button class="btn-criar">Criar conta</button>
-
+            <input id="bairroCadastro" type="text" placeholder="Ex: Centro">
+            
+            <button class="btn-criar" type="submit">Criar conta</button>
         </form>
     </main>
-
+    
     <footer>
-            <p>© DoaPiauí - 2025</p>
+        <p>© DoaPiauí - 2025</p>
     </footer>
-
-    <script src="/js/validacao.js"></script>
-
+    
+    <!-- Scripts -->
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/validacao.js"></script>
 </body>
 </html>
