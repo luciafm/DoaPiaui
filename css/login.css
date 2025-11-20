@@ -1,9 +1,10 @@
 :root {
-  --bg: #F7F3EB;
-  --white: #FFFFFF;
-  --green: #0A7B83;
-  --orange: #EA8B41;
-  --text: #1F2A2E;
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
   --text-light: #4F5B60;
 }
 
@@ -15,12 +16,12 @@
 }
 
 body {
-  background: var(--bg);
+  background: var(--beige-bg);
 }
 
 /* HEADER */
 header {
-  background: var(--green);
+  background: var(--green-primary);
   padding: 16px 8%;
   display: flex;
   justify-content: space-between;
@@ -43,7 +44,7 @@ header a {
 }
 
 header a:hover {
-  color: var(--orange);
+  color: var(--orange-primary);
   transform: scale(1.07);
 }
 
@@ -55,7 +56,7 @@ header a::after {
   bottom: 0; /* AJUSTE IMPORTANTE */
   width: 0%;
   height: 3px;
-  background: var(--orange);
+  background: var(--orange-primary);
   border-radius: 4px;
   transition: width .2s ease;
 }
@@ -66,19 +67,19 @@ header a:hover::after {
 }
 
 /* CARD CENTRAL */
-.container {
-  max-width: 420px;
-  margin: 50px auto;
-  background: var(--white);
-  padding: 30px 32px;
-  border-radius: 18px;
-  box-shadow: 0px 4px 22px rgba(0,0,0,0.08);
-  text-align: center;
+.container { 
+  max-width: 420px; 
+  margin: 50px auto; 
+  background: var(--beige-section); 
+  padding: 30px 32px; 
+  border-radius: 18px; 
+  box-shadow: 0px 4px 22px rgba(0,0,0,0.08); 
+  text-align: center; 
 }
 
 .container h2 {
   font-size: 32px;
-  color: var(--green);
+  color: var(--green-primary);
   font-weight: 700;
   margin-bottom: 30px;
 }
@@ -91,7 +92,7 @@ form {
 label {
   font-size: 15px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-light);
 }
 
 input {
@@ -106,7 +107,7 @@ input {
 /* BOTÃO LOGIN */
 .btn-login {
   width: 100%;
-  background: var(--green);
+  background: var(--green-primary);
   color: white;
   border: none;
   padding: 15px;
@@ -114,8 +115,14 @@ input {
   font-size: 17px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
+  margin: 20px 0px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+.btn-login:hover {
+    background-color: var(--orange-primary); 
+}
+
 
 /* Esqueci minha senha */
 .forgot {
@@ -123,7 +130,7 @@ input {
   text-align: center;
   margin-top: 14px;
   font-size: 15px;
-  color: var(--green);
+  color: var(--green-primary);
   text-decoration: none;
 }
 
@@ -139,28 +146,29 @@ input {
 .txt-small {
   text-align: center;
   font-size: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: var(--text-light);
 }
 
 /* BOTÃO CRIAR CONTA */
-.btn-criar {
+.link-cadastro a{
   width: 100%;
-  display: block;
-  text-align: center;
-  background: var(--orange);
-  color: white;
+  color: var(--text-light);
   padding: 14px;
-  border-radius: 10px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
-  text-decoration: none;
+  transition: color .2s ease, transform .2s ease;
 }
+.link-cadastro a:hover {
+  color: var(--orange-primary);
+  transform: scale(1.05);
+}
+
 
 /* FOOTER */
 footer {
   text-align: center;
   font-size: 14px;
-  margin: 20px 0px;
+  margin: 50px 0 0 0;
   color: var(--text-light);
 }

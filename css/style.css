@@ -184,7 +184,7 @@ header nav a:hover::after {
   justify-content: center;
 }
 
-.btn-cadastrar-coluna {
+/*.btn-cadastrar-coluna {
   display: inline-block;
   background: var(--orange-primary);
   color: white;
@@ -200,6 +200,25 @@ header nav a:hover::after {
 .btn-cadastrar-coluna:hover {
   opacity: 0.9;
   transform: translateY(-2px);
+}*/
+
+.btn-cadastrar-coluna {
+    display: inline-block;
+    background: var(--green-primary);
+    color: white;
+    padding: 22px 45px;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-cadastrar-coluna:hover {
+    transform: scale(1.06);
+    background-color: var(--orange-primary); 
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
 }
 
 footer {
