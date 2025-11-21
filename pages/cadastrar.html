@@ -8,21 +8,22 @@
 
 <body>
 
-     <!-- NAVBAR -->
+    <!-- NAVBAR -->
     <header class="navbar">
-        <div class="navbar-container">
+        <div class="container nav-content">
             <h1 class="logo">DoaPiauí</h1>
 
-            <nav>
+            <nav class="nav-links">
                 <a href="doacoes.html">Doações</a>
                 <a href="perfil.html">Meu Perfil</a>
                 <a href="config.html">Configurações</a>
-                <a href="#" class="logout">Sair</a>
+                <a href="#" id="logoutBtn" class="logout">Sair</a>
             </nav>
         </div>
     </header>
 
-    <div class="container">
+    <!-- FORMULÁRIO EM UM CARD SEPARADO -->
+    <div class="form-container">
 
         <h1>Cadastrar Doação</h1>
         <p class="sub">Preencha as informações para disponibilizar sua doação.</p>
@@ -42,18 +43,17 @@
             <div class="form-group">
                 <label>Categoria</label>
                 <select id="categoria" required>
-                        <option value="">Selecione...</option>
-                        <option value="roupas">Roupas</option>
-                        <option value="alimentos">Alimentos</option>
-                        <option value="calcados">Calçados</option>
-                        <option value="moveis">Móveis</option>
-                        <option value="higiene">Higiene</option>
-                        <option value="brinquedos">Brinquedos</option>
-                        <option value="eletronicos">Eletrônicos</option>
-                        <option value="outros">Outros</option>
+                    <option value="">Selecione...</option>
+                    <option value="roupas">Roupas</option>
+                    <option value="alimentos">Alimentos</option>
+                    <option value="calcados">Calçados</option>
+                    <option value="moveis">Móveis</option>
+                    <option value="higiene">Higiene</option>
+                    <option value="brinquedos">Brinquedos</option>
+                    <option value="eletronicos">Eletrônicos</option>
+                    <option value="outros">Outros</option>
                 </select>
             </div>
-
 
             <div class="form-group">
                 <label>Localização</label>
@@ -71,7 +71,6 @@
                 </select>
             </div>
 
-
             <div class="form-row">
                 <div class="form-group half">
                     <label>Quantidade</label>
@@ -81,20 +80,19 @@
                 <div class="form-group">
                     <label>Forma de entrega</label>
                     <select id="entrega" required>
-                            <option value="">Selecione...</option>
-                            <option value="retirada_local">Retirada no local</option>
-                            <option value="entrega">Entrega</option>
-                            <option value="combinar">A combinar</option>
+                        <option value="">Selecione...</option>
+                        <option value="retirada_local">Retirada no local</option>
+                        <option value="entrega">Entrega</option>
+                        <option value="combinar">A combinar</option>
                     </select>
                 </div>
-
             </div>
 
             <div class="form-group">
                 <label>Disponibilidade</label>
                 <select id="disponibilidade">
                     <option value="imediata">Imediata</option>
-                    <option value="data">Selecionar data</option>
+                    <option value="data">Combinar a data</option>
                 </select>
             </div>
 
@@ -108,21 +106,25 @@
                 <input type="text" id="whatsapp" required placeholder="Ex: (86) 9 9999-9999">
             </div>
 
-
             <div class="form-group">
                 <label>Imagem da doação</label>
                 <input type="file" id="imagem" accept="image/*">
             </div>
 
-            <button type="submit" class="btn">Cadastrar</button>
+            <div class="buttons-row">
+                <button type="submit" class="btn">Cadastrar</button>
 
+                <button onclick="window.location.href='doacoes.html'" class="btn-voltar">
+                    Voltar
+                </button>
+            </div>
         </form>
-
-        <button onclick="window.location.href='doacoes.html'" class="btn-voltar">
-            Voltar
-        </button>
-
     </div>
+
+     <!-- RODAPÉ -->
+    <footer>
+        © DoaPiauí - 2025
+    </footer>
 
 </body>
 </html>
