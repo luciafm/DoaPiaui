@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Doação - DoaPiauí</title>
+    <link rel="stylesheet" href="../css/cadastrar.css">
+</head>
+
+<body>
+
+     <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <h1 class="logo">DoaPiauí</h1>
+
+            <nav>
+                <a href="doacoes.html">Doações</a>
+                <a href="perfil.html">Meu Perfil</a>
+                <a href="config.html">Configurações</a>
+                <a href="#" class="logout">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <h1>Cadastrar Doação</h1>
+        <p class="sub">Preencha as informações para disponibilizar sua doação.</p>
+
+        <form id="formDoacao">
+
+            <div class="form-group">
+                <label>Título da doação</label>
+                <input type="text" id="titulo" required placeholder="Ex: Roupas de inverno">
+            </div>
+
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea id="descricao" required placeholder="Descreva os itens da doação"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="categoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="roupas">Roupas</option>
+                        <option value="alimentos">Alimentos</option>
+                        <option value="calcados">Calçados</option>
+                        <option value="moveis">Móveis</option>
+                        <option value="higiene">Higiene</option>
+                        <option value="brinquedos">Brinquedos</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                        <option value="outros">Outros</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label>Localização</label>
+                <input type="text" id="localizacao" required placeholder="Ex: Teresina – Centro">
+            </div>
+
+            <div class="form-group">
+                <label>Condição</label>
+                <select id="condicao" required>
+                    <option value="">Selecione...</option>
+                    <option value="novo">Novo</option>
+                    <option value="pouco_usado">Pouco usado</option>
+                    <option value="usado">Usado</option>
+                    <option value="bem_usado">Bem usado</option>
+                </select>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Quantidade</label>
+                    <input type="number" id="quantidade" value="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Forma de entrega</label>
+                    <select id="entrega" required>
+                            <option value="">Selecione...</option>
+                            <option value="retirada_local">Retirada no local</option>
+                            <option value="entrega">Entrega</option>
+                            <option value="combinar">A combinar</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Disponibilidade</label>
+                <select id="disponibilidade">
+                    <option value="imediata">Imediata</option>
+                    <option value="data">Selecionar data</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Observações</label>
+                <textarea id="observacoes" placeholder="Ex: Item higienizado e embalado"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp para contato</label>
+                <input type="text" id="whatsapp" required placeholder="Ex: (86) 9 9999-9999">
+            </div>
+
+
+            <div class="form-group">
+                <label>Imagem da doação</label>
+                <input type="file" id="imagem" accept="image/*">
+            </div>
+
+            <button type="submit" class="btn">Cadastrar</button>
+
+        </form>
+
+        <button onclick="window.location.href='doacoes.html'" class="btn-voltar">
+            Voltar
+        </button>
+
+    </div>
+
+</body>
+</html>

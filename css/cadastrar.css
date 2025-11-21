@@ -1,0 +1,183 @@
+:root {
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
+  --text-light: #4F5B60;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: var(--beige-bg);
+    font-family: "Inter", Arial, sans-serif;
+    margin: 0;
+    color: var(--text-dark);
+}
+
+/* ------------------------ */
+/* NAVBAR */
+/* ------------------------ */
+
+.navbar {
+    background: var(--green-primary);
+    padding: 20px 0;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* empurra itens para lados opostos */
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px; /* espaçamento entre os links */
+}
+
+.navbar nav a {
+    color: #fafafa;
+    text-decoration: none;
+    font-size: 16px;
+}
+/* EFEITO HOVER */
+.navbar nav a:hover {
+  color: var(--orange-primary); /* muda para laranja */
+  transform: scale(1.07);       /* leve aumento */
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+.container {
+    background: var(--beige-section);
+    max-width: 650px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+h1 {
+    margin-top: 0;
+    color: var(--green-primary);
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.sub {
+    margin-bottom: 25px;
+    color: var(--text-light);
+    font-size: 15px;
+}
+
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+
+/* INPUTS E TEXTAREAS */
+input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    background: white;
+    font-size: 15px;
+    color: var(--text-dark);
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 2px rgba(10,123,131,0.15);
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+/* SELECT STYLE */
+select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%234F5B60' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+    appearance: none;
+}
+
+/* ROWS (2 COLUNAS) */
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.half {
+    flex: 1;
+}
+
+/* BUTTONS */
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: var(--orange-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #d0762e;
+}
+
+.btn-voltar {
+    width: 100%;
+    padding: 13px;
+    margin-top: 18px;
+    background: var(--green-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.btn-voltar:hover {
+    background: #06656b;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    body { padding: 20px 10px; }
+
+    .container {
+        padding: 22px;
+    }
+}

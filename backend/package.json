@@ -5,7 +5,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "firebase": "^11.10.0"
+    "firebase": "^11.10.0",
+    "firebase-admin": "^13.6.0"
   },
   "scripts": {
     "start": "node server.js"
