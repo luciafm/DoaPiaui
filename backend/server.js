@@ -74,7 +74,9 @@ app.post("/login", async (req, res) => {
                 msg: "Preencha email e senha" 
             });
         }
-
+        if (!usuarioEncontrado) {
+           return res.status(401).json({ msg: "Email ou senha incorretos" });
+        }
         // Busca usuário pelo email
         const usuariosRef = db.collection("usuarios");
         const snapshot = await usuariosRef.where("email", "==", email).get();
