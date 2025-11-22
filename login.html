@@ -39,5 +39,39 @@
     <!-- Scripts -->
     <script type="module" src="../js/app.js"></script>
     <script type="module" src="../js/validacao.js"></script>
+    <script>
+ document.getElementById("formLogin").addEventListener("submit", async (e) => {
+     e.preventDefault(); // evita o form recarregar a página
+
+     const email = document.getElementById("emailLogin").value.trim();
+     const senha = document.getElementById("senhaLogin").value.trim();
+
+     if (!email || !senha) {
+         Swal.fire("Erro", "Preencha email e senha.", "error");
+         return;
+     }
+
+     try {
+         const resp = await fetch("http://localhost:3000/login", {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify({ email, senha })
+         });
+
+         const data = await resp.json();
+
+         if (data.success) {
+            window.location.href = "doacoes.html"; 
+         } else {
+             Swal.fire("Falha no login", data.msg || "Email ou senha incorretos", "error");
+         }
+
+     } catch (err) {
+         Swal.fire("Erro", "Não foi possível conectar ao servidor.", "error");
+         console.log(err);
+     }
+ });
+ </script>
+  
 </body>
 </html>
