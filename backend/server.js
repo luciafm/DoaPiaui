@@ -6,102 +6,100 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Rota de teste
+// ============================
+// ROTA DE TESTE
+// ============================
 app.get("/", (req, res) => {
     res.send("Backend funcionando!");
 });
 
-// ===== ROTA DE CADASTRO =====
+// ============================
+// CADASTRO
+// ============================
 app.post("/cadastro", async (req, res) => {
     try {
         const { nome, email, senha, whatsapp, bairro } = req.body;
-        
-        // Validação básica
+
         if (!nome || !email || !senha) {
-            return res.status(400).json({ 
-                success: false, 
-                msg: "Preencha todos os campos obrigatórios (nome, email e senha)" 
+            return res.status(400).json({
+                success: false,
+                msg: "Preencha nome, email e senha"
             });
         }
 
-        // Verifica se o email já existe
         const usuariosRef = db.collection("usuarios");
         const snapshot = await usuariosRef.where("email", "==", email).get();
-        
+
         if (!snapshot.empty) {
-            return res.status(400).json({ 
-                success: false, 
-                msg: "Email já cadastrado" 
+            return res.status(400).json({
+                success: false,
+                msg: "Email já cadastrado"
             });
         }
 
-        // Cria o novo usuário com TODOS os campos incluindo data
         const novoUsuario = {
             nome,
             email,
-            senha, // ⚠️ IMPORTANTE: Em produção, use hash (bcrypt)
+            senha, // EM PRODUÇÃO USA HASH, SEU ANIMAL
             whatsapp: whatsapp || "",
             bairro: bairro || "",
-            criadoEm: new Date().toISOString() // Data de criação
+            criadoEm: new Date().toISOString()
         };
 
         const docRef = await usuariosRef.add(novoUsuario);
-        
-        res.status(201).json({ 
-            success: true, 
+
+        res.status(201).json({
+            success: true,
             msg: "Cadastro realizado com sucesso!",
-            id: docRef.id 
+            id: docRef.id
         });
 
     } catch (error) {
         console.error("Erro no cadastro:", error);
-        res.status(500).json({ 
-            success: false, 
+        res.status(500).json({
+            success: false,
             msg: "Erro ao cadastrar usuário",
-            error: error.message 
+            error: error.message
         });
     }
 });
 
-// ===== ROTA DE LOGIN =====
+// ============================
+// LOGIN
+// ============================
 app.post("/login", async (req, res) => {
     try {
         const { email, senha } = req.body;
-        
+
         if (!email || !senha) {
-            return res.status(400).json({ 
-                success: false, 
-                msg: "Preencha email e senha" 
+            return res.status(400).json({
+                success: false,
+                msg: "Preencha email e senha"
             });
         }
-        if (!usuarioEncontrado) {
-           return res.status(401).json({ msg: "Email ou senha incorretos" });
-        }
-        // Busca usuário pelo email
+
         const usuariosRef = db.collection("usuarios");
         const snapshot = await usuariosRef.where("email", "==", email).get();
-        
+
         if (snapshot.empty) {
-            return res.status(401).json({ 
-                success: false, 
-                msg: "Email ou senha incorretos" 
+            return res.status(401).json({
+                success: false,
+                msg: "Email ou senha incorretos"
             });
         }
 
         const usuarioDoc = snapshot.docs[0];
         const usuario = usuarioDoc.data();
 
-        // Verifica senha
         if (usuario.senha !== senha) {
-            return res.status(401).json({ 
-                success: false, 
-                msg: "Email ou senha incorretos" 
+            return res.status(401).json({
+                success: false,
+                msg: "Email ou senha incorretos"
             });
         }
 
-        // Login bem-sucedido
-        res.status(200).json({ 
-            success: true, 
+        res.status(200).json({
+            success: true,
             msg: "Login realizado com sucesso!",
             usuario: {
                 id: usuarioDoc.id,
@@ -115,15 +113,91 @@ app.post("/login", async (req, res) => {
 
     } catch (error) {
         console.error("Erro no login:", error);
-        res.status(500).json({ 
-            success: false, 
+        res.status(500).json({
+            success: false,
             msg: "Erro ao fazer login",
-            error: error.message 
+            error: error.message
         });
     }
 });
 
-// Criar documento (rota antiga)
+// ============================
+// DOAÇÕES — SPRINT
+// ============================
+
+// LISTAR TODAS AS DOAÇÕES
+app.get("/doacoes", async (req, res) => {
+    try {
+        const snap = await db.collection("doacoes").get();
+        const lista = snap.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        res.json(lista);
+    } catch (error) {
+        res.status(500).json({
+            msg: "Erro ao listar doações",
+            error: error.message
+        });
+    }
+});
+
+// DETALHE DE UMA DOAÇÃO
+app.get("/doacoes/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const docRef = db.collection("doacoes").doc(id);
+        const snap = await docRef.get();
+
+        if (!snap.exists) {
+            return res.status(404).json({ msg: "Doação não encontrada" });
+        }
+
+        const data = snap.data();
+
+        // coloca o link do whatsapp pronto
+        data.whatsappLink = `https://wa.me/${data.whatsappDoador}?text=Tenho interesse na doação: ${data.titulo}`;
+
+        res.json({ id: snap.id, ...data });
+
+    } catch (error) {
+        res.status(500).json({
+            msg: "Erro ao buscar doação",
+            error: error.message
+        });
+    }
+});
+
+// BUSCA POR TEXTO (TÍTULO / DESCRIÇÃO)
+app.get("/busca/:termo", async (req, res) => {
+    try {
+        const termo = req.params.termo.toLowerCase();
+
+        const snap = await db.collection("doacoes").get();
+        const lista = snap.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const filtrados = lista.filter(x =>
+            x.titulo.toLowerCase().includes(termo) ||
+            x.descricao.toLowerCase().includes(termo)
+        );
+
+        res.json(filtrados);
+
+    } catch (error) {
+        res.status(500).json({
+            msg: "Erro na busca",
+            error: error.message
+        });
+    }
+});
+
+// ============================
+// ROTAS ANTIGAS (TESTE)
+// ============================
 app.post("/add", async (req, res) => {
     try {
         const data = req.body;
@@ -134,7 +208,6 @@ app.post("/add", async (req, res) => {
     }
 });
 
-// Listar documentos (rota antiga)
 app.get("/list", async (req, res) => {
     try {
         const snapshot = await db.collection("teste").get();
@@ -145,6 +218,9 @@ app.get("/list", async (req, res) => {
     }
 });
 
+// ============================
+// INICIAR SERVIDOR
+// ============================
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
