@@ -1,13 +1,13 @@
 import express from "express";
 import cors from "cors";
-import { db } from "./firebase-admin.js"; // importa do teu arquivo certinho
+import { db } from "./firebase-admin.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // =========================
-// ROTAS DA SPRINT
+// ROTAS DE ITENS (Sprint)
 // =========================
 
 // Criar item
@@ -41,7 +41,7 @@ app.get("/item", async (req, res) => {
   }
 });
 
-// Buscar 1 item
+// Buscar item por ID
 app.get("/item/:id", async (req, res) => {
   try {
     const doc = await db.collection("itens").doc(req.params.id).get();
@@ -80,6 +80,123 @@ app.delete("/item/:id", async (req, res) => {
   } catch (err) {
     console.error("Erro ao deletar item:", err);
     res.status(500).json({ erro: "Erro no servidor." });
+  }
+});
+
+// =========================
+// ROTAS DE DOAÇÕES
+// =========================
+
+// Listar doações
+app.get("/doacoes", async (req, res) => {
+  try {
+    const snapshot = await db
+      .collection("doacoes")
+      .orderBy("criadoEm", "desc")
+      .get();
+
+    const lista = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json({
+      success: true,
+      doacoes: lista,
+    });
+  } catch (error) {
+    console.error("Erro ao listar doações:", error);
+    res.status(500).json({
+      success: false,
+      msg: "Erro ao listar doações",
+      error: error.message,
+    });
+  }
+});
+
+// Busca simples por nome, categoria e bairro
+app.get("/buscar", async (req, res) => {
+  try {
+    const { nome, categoria, bairro } = req.query;
+
+    let query = db.collection("doacoes");
+
+    if (nome) {
+      query = query
+        .where("nome", ">=", nome)
+        .where("nome", "<=", nome + "\uf8ff");
+    }
+
+    if (categoria) {
+      query = query.where("categoria", "==", categoria);
+    }
+
+    if (bairro) {
+      query = query.where("bairro", "==", bairro);
+    }
+
+    const snapshot = await query.get();
+
+    const lista = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    res.status(200).json({
+      success: true,
+      doacoes: lista,
+    });
+  } catch (error) {
+    console.error("Erro na busca:", error);
+    res.status(500).json({
+      success: false,
+      msg: "Erro ao buscar doações",
+      error: error.message,
+    });
+  }
+});
+
+// Link automático do WhatsApp
+app.get("/doacoes/:id/whatsapp", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const doc = await db.collection("doacoes").doc(id).get();
+
+    if (!doc.exists) {
+      return res.status(404).json({
+        success: false,
+        msg: "Doação não encontrada",
+      });
+    }
+
+    const doacao = doc.data();
+
+    if (!doacao.whatsapp) {
+      return res.status(400).json({
+        success: false,
+        msg: "Essa doação não tem WhatsApp cadastrado",
+      });
+    }
+
+    const numero = doacao.whatsapp.replace(/\D/g, "");
+    const texto = encodeURIComponent(
+      `Olá! Tenho interesse na sua doação: ${doacao.nome}`
+    );
+
+    const link = `https://wa.me/${numero}?text=${texto}`;
+
+    res.status(200).json({
+      success: true,
+      link,
+    });
+  } catch (error) {
+    console.error("Erro ao gerar link do WhatsApp:", error);
+    res.status(500).json({
+      success: false,
+      msg: "Erro ao gerar link",
+      error: error.message,
+    });
   }
 });
 
