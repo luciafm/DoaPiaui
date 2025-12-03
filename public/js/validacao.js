@@ -32,7 +32,7 @@ if (loginForm) {
     if (!senha) return Swal.fire({ icon:"error", title:"Senha obrigatória" });
 
     try {
-      const resp = await fetch("http://localhost:3000/login", {
+      const resp = await fetch("https://doapiaui.onrender.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha })
