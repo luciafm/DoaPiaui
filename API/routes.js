@@ -1,52 +1,70 @@
 const express = require("express");
 const router = express.Router();
-const db = require("./db");
+const { db, auth } = require("./db");
 
-// ========== LOGIN ==========
+// ======================
+// LOGIN
+// ======================
 router.post("/login", async (req, res) => {
-  const { email, senha } = req.body;
-
   try {
-    const snap = await db
-      .collection("usuarios")
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+      return res.status(400).json({ msg: "Email e senha obrigatórios." });
+    }
+
+    const snapshot = await db.collection("usuarios")
       .where("email", "==", email)
       .where("senha", "==", senha)
       .get();
 
-    if (snap.empty) {
-      return res.status(400).json({ msg: "Email ou senha incorretos" });
+    if (snapshot.empty) {
+      return res.status(401).json({ msg: "Usuário não encontrado." });
     }
 
-    const usuario = { id: snap.docs[0].id, ...snap.docs[0].data() };
-    res.json({ usuario });
+    const user = snapshot.docs[0];
+    res.json({ usuario: { id: user.id, ...user.data() } });
 
-  } catch (e) {
-    res.status(500).json({ erro: e.message });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ msg: "Erro no login." });
   }
 });
 
-// ========= CADASTRAR USUÁRIO ===========
+
+// ======================
+// CADASTRAR USUARIO
+// ======================
 router.post("/usuarios", async (req, res) => {
   try {
     const { nome, email, senha, whatsapp, bairro } = req.body;
 
-    const doc = await db.collection("usuarios").add({
+    if (!nome || !email || !senha) {
+      return res.status(400).json({ msg: "Dados incompletos." });
+    }
+
+    const novo = {
       nome,
       email,
       senha,
-      whatsapp,
-      bairro,
-      criadoEm: new Date()
-    });
+      whatsapp: whatsapp || "",
+      bairro: bairro || "",
+      criadoEm: new Date().toISOString()
+    };
 
-    res.json({ id: doc.id });
+    const doc = await db.collection("usuarios").add(novo);
+    res.status(201).json({ id: doc.id, ...novo });
 
-  } catch (e) {
-    res.status(500).json({ erro: e.message });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ msg: "Erro ao cadastrar usuário." });
   }
 });
 
-// Listar doações
+
+// ======================
+// LISTAR DOACOES
+// ======================
 router.get("/doacoes", async (req, res) => {
   try {
     const snapshot = await db.collection("doacoes").get();
@@ -64,7 +82,9 @@ router.get("/doacoes", async (req, res) => {
 });
 
 
-// Cadastrar nova doação
+// ======================
+// CADASTRAR DOACAO
+// ======================
 router.post("/doacoes", async (req, res) => {
   try {
     const { titulo, descricao, categoria, localizacao, imagem } = req.body;
@@ -91,3 +111,6 @@ router.post("/doacoes", async (req, res) => {
     res.status(500).json({ msg: "Erro ao cadastrar doação." });
   }
 });
+
+
+module.exports = router;
