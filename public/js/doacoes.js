@@ -7,12 +7,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (logoutBtn) logoutBtn.addEventListener("click", logout);
 
-  async function listarDoacoes(nome = "") {
-    try {
-      let url = "http://localhost:3000/doacoes";
-      if (nome) url = `http://localhost:3000/buscar?nome=${encodeURIComponent(nome)}`;
+  const API = "https://doapiaui.onrender.com/api";
 
-      const res = await fetch(url);
+  async function listarDoacoes() {
+    try {
+      const res = await fetch(`${API}/doacoes`);
       const data = await res.json();
       grid.innerHTML = "";
 
@@ -42,7 +41,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  searchInput.addEventListener("input", () => listarDoacoes(searchInput.value));
+  // O SEARCH FOI DESATIVADO PORQUE TEU BACKEND NÃO TEM BUSCA
+  searchInput.addEventListener("input", () => {
+    listarDoacoes();
+  });
 
   listarDoacoes();
 });
