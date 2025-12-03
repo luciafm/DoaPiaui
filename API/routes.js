@@ -60,3 +60,31 @@ router.get("/doacoes", async (req, res) => {
 });
 
 module.exports = router;
+
+// Cadastrar nova doação
+router.post("/doacoes", async (req, res) => {
+  try {
+    const { titulo, descricao, categoria, localizacao, imagem } = req.body;
+
+    if (!titulo || !descricao) {
+      return res.status(400).json({ msg: "Título e descrição são obrigatórios." });
+    }
+
+    const nova = {
+      titulo,
+      descricao,
+      categoria: categoria || "Outro",
+      localizacao: localizacao || "-",
+      imagem: imagem || "",
+      criadoEm: new Date().toISOString()
+    };
+
+    const doc = await db.collection("doacoes").add(nova);
+
+    res.status(201).json({ id: doc.id, ...nova });
+
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ msg: "Erro ao cadastrar doação." });
+  }
+});
