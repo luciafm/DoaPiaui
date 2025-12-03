@@ -46,20 +46,23 @@ router.post("/usuarios", async (req, res) => {
   }
 });
 
-// ========== LISTAR DOAÇÕES ==========
+// Listar doações
 router.get("/doacoes", async (req, res) => {
   try {
-    const snap = await db.collection("doacoes").get();
+    const snapshot = await db.collection("doacoes").get();
+    const lista = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
 
-    const dados = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    res.json({ doacoes: dados });
+    res.json({ doacoes: lista });
 
-  } catch (e) {
-    res.status(500).json({ erro: e.message });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ msg: "Erro ao listar doações." });
   }
 });
 
-module.exports = router;
 
 // Cadastrar nova doação
 router.post("/doacoes", async (req, res) => {
