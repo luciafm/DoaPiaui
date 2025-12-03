@@ -1,0 +1,193 @@
+:root {
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
+  --text-light: #4F5B60;
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: var(--beige-bg);
+  color: var(--text-dark);
+}
+
+/* ------------------------ */
+/* NAVBAR */
+/* ------------------------ */
+
+.navbar {
+    background: var(--green-primary);
+    padding: 20px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between; /* empurra itens para lados opostos */
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 32px; /* espaçamento entre os links */
+}
+
+.navbar nav a {
+    color: #fafafa;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* EFEITO HOVER */
+.navbar nav a:hover {
+  color: var(--orange-primary); /* muda para laranja */
+  transform: scale(1.07);       /* leve aumento */
+}
+
+.navbar nav a:hover::after {
+  width: 100%;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* TÍTULO */
+.page-title {
+  margin-top: 40px;
+  margin-bottom: 24px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* CONTAINER PRINCIPAL */
+.detail-wrapper {
+  background: var(--beige-section);
+  padding: 28px;
+  border-radius: 14px;
+  display: flex;
+  gap: 32px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+/* IMAGEM */
+.detail-image {
+  width: 32%;
+  height: auto;
+  min-width: 240px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 330px;
+}
+
+/* INFORMAÇÕES */
+.detail-info {
+  width: 68%;
+}
+
+.detail-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--yellow-light);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.local {
+  color: var(--text-light);
+  margin: 6px 0;
+}
+
+.map-link {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--green-primary);
+  margin-bottom: 14px;
+}
+
+/* DESCRIÇÃO */
+.desc {
+  margin: 12px 0 20px;
+  line-height: 1.5;
+}
+
+/* INFORMAÇÕES ADICIONAIS */
+.extra-info p {
+  margin-bottom: 6px;
+}
+
+.obs {
+  margin: 10px 0;
+  font-style: italic;
+  color: var(--text-light);
+}
+
+/* DOADOR */
+.doador-box {
+  background: white;
+  padding: 14px 16px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 4px rgba(0,0,0,0.1);
+}
+
+.donations-count {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* BOTÕES */
+.btn-contact {
+  background: var(--orange-primary);
+  color: white;
+  padding: 14px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .25s;
+}
+
+.btn-contact:hover {
+  background: #d9772f;
+  transform: translateY(-2px);
+}
+
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 35px 0;
+  margin-top: 40px;
+  color: var(--text-light);
+}

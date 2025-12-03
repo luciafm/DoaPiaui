@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Doação - DoaPiauí</title>
+    <link rel="stylesheet" href="../css/cadastrar.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .preview-img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+        .preview-img.show {
+            display: block;
+        }
+    </style>
+</head>
+<body data-protegido="true">
+<header class="navbar">
+    <div class="container nav-content">
+        <h1 class="logo">DoaPiauí</h1>
+        <nav class="nav-links">
+            <a href="doacoes.html">Doações</a>
+            <a href="perfil.html">Meu Perfil</a>
+            <a href="config.html">Configurações</a>
+            <a href="#" id="logoutBtn" class="logout">Sair</a>
+        </nav>
+    </div>
+</header>
+
+<div class="form-container">
+    <h1>Cadastrar Doação</h1>
+    <p class="sub">Preencha as informações para disponibilizar sua doação.</p>
+
+    <form id="formDoacao">
+        <div class="form-group">
+            <label>Imagem da doação (máx 400KB)</label>
+            <input type="file" id="imagem" accept="image/*">
+            <img id="preview" class="preview-img" alt="Preview">
+        </div>
+        <div class="form-group">
+            <label>Título da doação</label>
+            <input type="text" id="titulo" required placeholder="Ex: Roupas de inverno">
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea id="descricao" required placeholder="Descreva os itens da doação"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Categoria</label>
+            <select id="categoria" required>
+                <option value="">Selecione...</option>
+                <option value="roupas">Roupas</option>
+                <option value="alimentos">Alimentos</option>
+                <option value="calcados">Calçados</option>
+                <option value="moveis">Móveis</option>
+                <option value="higiene">Higiene</option>
+                <option value="brinquedos">Brinquedos</option>
+                <option value="eletronicos">Eletrônicos</option>
+                <option value="outros">Outros</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Localização</label>
+            <input type="text" id="localizacao" required placeholder="Ex: Teresina – Centro">
+        </div>
+        <div class="form-group">
+            <label>Condição</label>
+            <select id="condicao" required>
+                <option value="">Selecione...</option>
+                <option value="novo">Novo</option>
+                <option value="pouco_usado">Pouco usado</option>
+                <option value="usado">Usado</option>
+                <option value="bem_usado">Bem usado</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group half">
+                <label>Quantidade</label>
+                <input type="number" id="quantidade" value="1" min="1">
+            </div>
+            <div class="form-group">
+                <label>Forma de entrega</label>
+                <select id="entrega" required>
+                    <option value="">Selecione...</option>
+                    <option value="retirada_local">Retirada no local</option>
+                    <option value="entrega">Entrega</option>
+                    <option value="combinar">A combinar</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Disponibilidade</label>
+            <select id="disponibilidade">
+                <option value="imediata">Imediata</option>
+                <option value="data">Combinar a data</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Observações</label>
+            <textarea id="observacoes" placeholder="Ex: Item higienizado e embalado"></textarea>
+        </div>
+        <div class="form-group">
+            <label>WhatsApp para contato</label>
+            <input type="text" id="whatsapp" required placeholder="Ex: (86) 9 9999-9999">
+        </div>
+        <div class="buttons-row">
+            <button type="submit" class="btn">Cadastrar</button>
+            <button type="button" onclick="window.location.href='doacoes.html'" class="btn-voltar">Voltar</button>
+        </div>
+    </form>
+</div>
+
+<footer>© DoaPiauí - 2025</footer>
+
+<script type="module">
+import { logout } from "../js/app.js";
+
+document.getElementById("logoutBtn")?.addEventListener("click", () => logout());
+
+const inputImagem = document.getElementById("imagem");
+const preview = document.getElementById("preview");
+
+inputImagem.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const maxSize = 400 * 1024; // 400KB
+        if (file.size > maxSize) {
+            Swal.fire({
+                icon: "error",
+                title: "Imagem muito grande!",
+                text: "A imagem deve ter no máximo 400KB. Comprima a imagem antes de enviar."
+            });
+            inputImagem.value = "";
+            preview.classList.remove("show");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            preview.src = event.target.result;
+            preview.classList.add("show");
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.classList.remove("show");
+    }
+});
+
+const form = document.getElementById("formDoacao");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    let imagemBase64 = null;
+    const file = inputImagem.files[0];
+    
+    if (file) {
+        const reader = new FileReader();
+        imagemBase64 = await new Promise((resolve) => {
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const doacao = {
+        titulo: document.getElementById("titulo").value.trim(),
+        descricao: document.getElementById("descricao").value.trim(),
+        categoria: document.getElementById("categoria").value,
+        localizacao: document.getElementById("localizacao").value.trim(),
+        condicao: document.getElementById("condicao").value,
+        quantidade: Number(document.getElementById("quantidade").value),
+        entrega: document.getElementById("entrega").value,
+        disponibilidade: document.getElementById("disponibilidade").value,
+        observacoes: document.getElementById("observacoes").value.trim(),
+        whatsapp: document.getElementById("whatsapp").value.trim(),
+        imagem: imagemBase64
+    };
+
+    try {
+        const resp = await fetch("http://localhost:3000/doacoes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(doacao)
+        });
+        
+        if (resp.ok) {
+            Swal.fire({
+                icon: "success",
+                title: "Doação cadastrada!",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            setTimeout(() => window.location.href = "doacoes.html", 1600);
+        } else {
+            const json = await resp.json();
+            Swal.fire({ icon: "error", title: "Erro ao cadastrar", text: json.msg || "Tente novamente." });
+        }
+    } catch (err) {
+        console.error(err);
+        Swal.fire({ icon: "error", title: "Erro de conexão", text: "Não foi possível conectar ao servidor." });
+    }
+});
+</script>
+</body>
+</html>

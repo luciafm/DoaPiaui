@@ -1,0 +1,224 @@
+:root {
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
+  --text-light: #4F5B60;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: var(--beige-bg);
+    color: var(--text-dark);
+}
+
+/* ------------------------ */
+/* GLOBAL CONTAINER (HEADER) */
+/* ------------------------ */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ------------------------ */
+/* NAVBAR */
+/* ------------------------ */
+
+.navbar {
+    background: var(--green-primary);
+    padding: 18px 0;
+    width: 100%;
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--orange-primary);
+    transform: scale(1.07);
+}
+
+.logout {
+    color: #ffd4d4;
+}
+
+/* ------------------------ */
+/* CARD DO FORMULÁRIO */
+/* ------------------------ */
+
+.form-container {
+    background: var(--beige-section);
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+h1 {
+    color: var(--green-primary);
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.sub {
+    margin-bottom: 25px;
+    color: var(--text-light);
+    font-size: 15px;
+}
+
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark);
+}
+
+/* INPUTS */
+input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    background: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--green-primary);
+    box-shadow: 0 0 0 2px rgba(10,123,131,0.15);
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+}
+
+/* SELECT */
+select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%234F5B60' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+    appearance: none;
+}
+
+/* DUAS COLUNAS */
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.half {
+    flex: 1;
+}
+
+/* BOTÕES */
+
+/* Colocar botões lado a lado */
+.buttons-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+/* Faz o botão NÃO ocupar largura total */
+.buttons-row .btn,
+.buttons-row .btn-voltar {
+    width: 50%;
+}
+
+.btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--orange-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #bf5906;
+}
+
+.btn-voltar {
+    width: 100%;
+    padding: 13px;
+    background: var(--green-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-voltar:hover {
+    background: #00545a;
+}
+
+
+/* ------------------------ */
+/* FOOTER */
+/* ------------------------ */
+
+footer {
+    text-align: center;
+    padding: 50px 0 10px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .form-container {
+        padding: 22px;
+    }
+}

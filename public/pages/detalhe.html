@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhe da Doação - DoaPiauí</title>
+    <link rel="stylesheet" href="../css/detalhe.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="container nav-content">
+        <h1 class="logo">DoaPiauí</h1>
+        <nav>
+            <a href="doacoes.html">Doações</a>
+            <a href="#">Meu Perfil</a>
+            <a href="#">Configurações</a>
+            <a href="#" class="logout">Sair</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <h2 class="page-title">Detalhes da doação</h2>
+
+    <div class="detail-wrapper">
+
+        <div class="detail-image">
+            <img src="https://via.placeholder.com/150" alt="Imagem da doação">
+        </div>
+
+        <div class="detail-info">
+
+            <h2 class="detail-title">-</h2>
+            <span class="tag">-</span>
+            <p class="local">📍 -</p>
+            <a href="#" target="_blank" class="map-link">Ver no mapa</a>
+            <p class="desc">-</p>
+
+            <div class="extra-info">
+                <p><strong>Condição:</strong> -</p>
+                <p><strong>Quantidade:</strong> -</p>
+                <p><strong>Tamanho:</strong> -</p>
+                <p><strong>Forma de entrega:</strong> -</p>
+                <p><strong>Disponibilidade:</strong> -</p>
+                <p class="obs"><strong>Observações:</strong> -</p>
+            </div>
+
+            <div class="doador-box">
+                <strong>Doador:</strong> - <br>
+                <span class="donations-count">⭐ 0 doações realizadas</span>
+            </div>
+
+            <div class="actions-row">
+                <a href="#" target="_blank" class="btn-contact">Entrar em contato</a>
+            </div>
+
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    © DoaPiauí - 2025
+</footer>
+
+<script type="module">
+document.addEventListener("DOMContentLoaded", async () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const id = queryParams.get("id");
+    if (!id) return alert("Doação não especificada.");
+
+    try {
+        const res = await fetch(`http://localhost:3000/doacoes/${id}`);
+        if (!res.ok) throw new Error(`Doação não encontrada (${res.status})`);
+        const data = await res.json();
+        const d = data.doacao;
+
+        document.querySelector(".detail-title").textContent = d.titulo || "-";
+        document.querySelector(".tag").textContent = d.categoria || "Outros";
+        document.querySelector(".local").textContent = `📍 ${d.localizacao || "-"}`;
+        document.querySelector(".desc").textContent = d.descricao || "-";
+        document.querySelector(".detail-image img").src = d.imagem || 'https://via.placeholder.com/150';
+        document.querySelector(".doador-box").innerHTML = `
+            <strong>Doador:</strong> ${d.doadorNome || "-"} <br>
+            <span class="donations-count">⭐ ${d.doadorQtdDoacoes || 0} doações realizadas</span>
+        `;
+        document.querySelector(".extra-info").innerHTML = `
+            <p><strong>Condição:</strong> ${d.condicao || "-"}</p>
+            <p><strong>Quantidade:</strong> ${d.quantidade || "-"}</p>
+            <p><strong>Tamanho:</strong> ${d.tamanho || "-"}</p>
+            <p><strong>Forma de entrega:</strong> ${d.formaEntrega || "-"}</p>
+            <p><strong>Disponibilidade:</strong> ${d.disponibilidade || "-"}</p>
+            <p class="obs"><strong>Observações:</strong> ${d.observacoes || "-"}</p>
+        `;
+        document.querySelector(".btn-contact").href = `https://wa.me/${d.doadorWhatsapp || ""}?text=Olá,+tenho+interesse+na+doação`;
+
+        if (d.localizacao) {
+            document.querySelector(".map-link").href = `https://www.google.com/maps?q=${encodeURIComponent(d.localizacao)}`;
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("Erro ao carregar a doação. Verifique se o servidor Node está rodando e se o ID existe no Firestore.");
+    }
+});
+</script>
+
+</body>
+</html>

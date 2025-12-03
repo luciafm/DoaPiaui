@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doações Disponíveis - DoaPiauí</title>
+    <link rel="stylesheet" href="../css/doacoes.css">
+</head>
+<body data-protegido="true">
+<header class="navbar">
+    <div class="container">
+        <h1 class="logo">DoaPiauí</h1>
+        <nav>
+            <a href="doacoes.html">Doações</a>
+            <a href="perfil.html">Meu Perfil</a>
+            <a href="config.html">Configurações</a>
+            <a href="#" class="logout">Sair</a>
+        </nav>
+    </div>
+</header>
+<main class="container">
+    <div class="header-row">
+        <h2>Doações disponíveis</h2>
+        <a href="cadastrar.html" class="btn-primary">Cadastrar nova doação</a>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Pesquisar doação...">
+    </div>
+    <section class="doacoes-grid"></section>
+</main>
+<footer>© DoaPiauí - 2025</footer>
+<script type="module">
+import { logout } from "../js/app.js";
+document.querySelector(".logout")?.addEventListener("click", () => logout());
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const grid = document.querySelector(".doacoes-grid");
+    const searchInput = document.getElementById("searchInput");
+
+    async function listarDoacoes(nome = "") {
+        try {
+            let url = "http://localhost:3000/doacoes";
+            if (nome) url = `http://localhost:3000/buscar?nome=${encodeURIComponent(nome)}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            grid.innerHTML = "";
+            if (!data.doacoes || data.doacoes.length === 0) {
+                grid.innerHTML = "<p>Nenhuma doação encontrada.</p>";
+                return;
+            }
+            data.doacoes.forEach(d => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.innerHTML = `
+                  <img src="${d.imagem || 'https://via.placeholder.com/150'}" alt="${d.titulo}">
+                  <div class="card-content">
+                    <h3>${d.titulo}</h3>
+                    <span class="tag">${d.categoria || "Outros"}</span>
+                    <p class="local">${d.localizacao || "-"}</p>
+                    <p class="desc">${d.descricao || "-"}</p>
+                    <a href="detalhe.html?id=${d.id}" class="details-btn">Ver detalhes</a>
+                  </div>
+                `;
+                grid.appendChild(card);
+            });
+        } catch (err) {
+            console.error(err);
+            grid.innerHTML = "<p>Erro ao carregar doações.</p>";
+        }
+    }
+    searchInput.addEventListener("input", () => listarDoacoes(searchInput.value));
+    listarDoacoes();
+});
+</script>
+</body>
+</html>

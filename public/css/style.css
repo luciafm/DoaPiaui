@@ -1,0 +1,489 @@
+:root {
+  --green-primary: #0A7B83;
+  --orange-primary: #EA8B41;
+  --yellow-light: #F2C84B;
+  --beige-bg: #F7F3EB;
+  --beige-section: #FFFDF7;
+  --text-dark: #1F2A2E;
+  --text-light: #4F5B60;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: var(--beige-bg);
+  color: var(--text-dark);
+}
+header {
+  width: 100%;
+  background: var(--green-primary);
+  color: white;
+  padding: 16px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* LINKS DO NAV */
+header nav a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  margin-left: 18px;
+  font-weight: 500;
+  font-size: 16px;
+
+  transition: color .2s ease, transform .2s ease;
+}
+
+/* EFEITO HOVER */
+header nav a:hover {
+  color: var(--orange-primary); /* muda para laranja */
+  transform: scale(1.07);       /* leve aumento */
+}
+
+/* LINHA ANIMADA EMBAIXO */
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 3px;
+  background: var(--orange-primary);
+  border-radius: 4px;
+  transition: width .2s ease;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 15%;
+  background: var(--beige-bg);
+}
+
+.hero-text {
+  max-width: 480px;
+}
+
+.hero-text h2 {
+  font-size: 50px;
+  font-weight: 700;
+  color: var(--green-primary);
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+
+.hero-text p {
+  font-size: 22px;
+  color: var(--text-light);
+}
+
+.hero img {
+  width: 400px;
+  border-radius: 0px;
+}
+.numeros {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  padding: 60px 0;
+  background: var(--orange-primary);
+}
+
+.numero {
+  background: #FFF;
+  padding: 30px 40px;
+  border-radius: 18px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.2s;
+}
+
+.numero:hover {
+  transform: scale(1.1);
+}
+
+.numero h3 {
+  font-size: 58px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+
+.numero p {
+  margin-top: 6px;
+  font-size: 16px;
+  color: var(--text-light);
+}
+
+/* ===============================
+   COMO FUNCIONA — VERTICAL
+=================================*/
+/* CONTAINER EM 2 COLUNAS */
+.como-funciona-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 70px 22%;
+  background: #FFFDF7;
+  gap: 60px;
+}
+
+/* COLUNA ESQUERDA */
+.col-esquerda {
+  flex: 1;
+}
+
+/* MANTÉM O ESTILO DO SEU "Como Funciona" */
+.col-esquerda h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: var(--text-dark);
+}
+
+/* ÍCONES E PASSOS */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.step-icon {
+  width: 58px;
+  height: 58px;
+  background: #FFEBC2;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* COLUNA DIREITA (BOTÃO GRANDE) */
+.col-direita {
+  flex: 0.7;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-cadastrar-coluna {
+    display: inline-block;
+    background: var(--green-primary);
+    color: white;
+    padding: 22px 45px;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-cadastrar-coluna:hover {
+    transform: scale(1.06);
+    background-color: var(--orange-primary); 
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================
+   BENEFÍCIOS
+=================================*/
+.beneficios {
+  padding: 80px 0;
+  background: var(--green-primary);
+  text-align: center;
+}
+
+.beneficios h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  color: white;
+}
+
+.beneficios-grid {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.beneficio-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  font-size: 20px;
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+}
+
+.beneficio-card:hover {
+  transform: translateY(-6px);
+}
+
+.beneficio-card h3 {
+  margin-top: 10px;
+  font-size: 22px;
+  color: var(--orange-primary);
+}
+
+.beneficio-card p {
+  margin-top: 12px;
+  font-size: 19px;
+}
+
+
+/* ===============================
+   FUNCIONALIDADES
+=================================*/
+.funcionalidades {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.funcionalidades h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: var(--text-dark);
+}
+
+.func-grid {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.func-card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+  transition: 0.25s ease;
+}
+
+.func-card:hover {
+  transform: translateY(-5px);
+}
+
+.func-card h3 {
+  font-size: 20px;
+  color: var(--green-primary);
+  margin-bottom: 8px;
+}
+/* ===============================
+   PARA QUEM É
+=================================*/
+.para-quem {
+  padding: 80px 0;
+  background: var(--beige-section);
+  text-align: center;
+}
+
+.para-quem h2 {
+  font-size: 34px;
+  margin-bottom: 35px;
+  font-weight: 700;
+}
+
+.pq-grid {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas fixas */
+  gap: 25px;
+  font-size: 20px;
+  justify-items: center;
+}
+
+.pq-grid div {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.07);
+  height: 80px;              /* deixa todos iguais */
+  width: 100%;                /* ocupa a coluna inteira */
+  display: flex;              /* centraliza conteúdo */
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.pq-grid div:hover {
+  transform: translateY(-5px);
+}
+
+/* ===============================
+   CTA FINAL
+=================================*/
+/* CTA FINAL — Caixa clean */
+.cta-final {
+  padding: 80px 0;
+  border-top: 6px solid var(--orange-primary);
+  background: var(--beige-bg);
+  display: flex;
+  justify-content: center;
+}
+
+.cta-box {
+  background: white;
+  padding: 50px 60px;
+  border-radius: 18px;
+  box-shadow: 0px 6px 24px rgba(0,0,0,0.10);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+}
+
+.cta-box h2 {
+  font-size: 32px;
+  color: var(--text-dark);
+  margin-bottom: 25px;
+}
+
+.cta-btn {
+  display: inline-block;
+  background: var(--orange-primary);
+  color: white;
+  padding: 16px 36px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.cta-btn:hover {
+  background: var(--green-primary);
+  transform: scale(1.4);
+}
+
+
+
+
+/* ===============================
+       FOOTER DOAPIUAÍ
+=================================*/
+
+.footer {
+  background: #053f43;
+  color: white;
+  padding: 60px 0 20px;
+}
+
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h3 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.footer-col p {
+  color: #e8f6f7;
+  margin-top: 6px;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.footer-col a {
+  display: block;
+  color: #dff8fa;
+  text-decoration: none;
+  margin-bottom: 8px;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+.footer-col a:hover {
+  color: var(--yellow-light);
+  transform: translateX(4px);
+}
+
+/* ÍCONES SOCIAIS */
+.footer-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.footer-social img {
+  width: 28px;
+  height: 28px;
+  transition: 0.25s ease;
+}
+
+.footer-social img:hover {
+  transform: scale(1.12);
+  filter: brightness(1.2);
+}
+
+/* PARTE DE BAIXO */
+.footer-bottom {
+  text-align: center;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin-top: 40px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #d8eff0;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .como-funciona-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .col-direita {
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .btn-cadastrar-coluna {
+    width: 100%;
+  }}
